@@ -5,148 +5,94 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Jóvenes Valientes de Corazón</title>
   <style>
-    :root {
-      --bg:#0f0f0f;
-      --ink:#f3f3f3;
-      --muted:#c7c7c7;
+    :root{
+      --bg:#0f0f0f; 
+      --ink:#f3f3f3; 
+      --muted:#c7c7c7; 
       --accent:#d3a65c;
       --font: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
     }
-    * {
-      box-sizing: border-box;
-    }
-    html, body {
-      height: 100%;
-      margin: 0;
-      font-family: var(--font);
-      color: var(--ink);
-      background: var(--bg);
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body {
+      margin:0; 
+      font-family:var(--font); 
+      color:var(--ink); 
+      background:var(--bg)
     }
     .screen {
-      display: none;
-      min-height: 100dvh;
-      padding: 8vh 6vw;
-      position: relative;
-      cursor: pointer;
+      display:none; 
+      min-height:100dvh; 
+      padding:8vh 6vw;  
+      position:relative; 
+      cursor:pointer
     }
     .screen.active {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 24px;
-      text-align: center;
+      display:flex; 
+      align-items:center; 
+      justify-content:center; 
+      flex-direction:column; 
+      gap:24px; 
+      text-align:center
     }
-    h1, h2 {
-      margin: 0 0 12px 0;
-      line-height: 1.2;
-    }
-    h1 {
-      font-size: clamp(28px, 4vw, 48px);
-    }
-    h2 {
-      font-size: clamp(20px, 2.8vw, 32px);
-      font-weight: 600;
-      color: var(--accent);
-    }
+    h1,h2{margin:0 0 12px 0; line-height:1.2}
+    h1{font-size:clamp(28px,4vw,48px)}
+    h2{font-size:clamp(20px,2.8vw,32px); font-weight:600; color:var(--accent)}
     p {
-      margin: 0;
-      font-size: clamp(16px, 2.3vw, 20px);
-      color: var(--muted);
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0 14px; /* padding lateral */
+      margin:0; 
+      font-size:clamp(16px,2.3vw,20px); 
+      color:var(--muted); 
+      max-width:800px;
+      margin-left:auto; 
+      margin-right:auto;
+      padding: 0 14px; 
     }
-    .soft {
-      opacity: .85;
+    .soft{opacity:.85}
+    .grid{
+      display:grid; 
+      grid-template-columns:repeat(4, minmax(60px,1fr)); 
+      gap:10px; 
+      width:min(900px,96vw)
     }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(60px, 1fr));
-      gap: 10px;
-      width: min(900px, 96vw);
-      margin: 0 auto;
+    .card{
+      aspect-ratio:1/1; 
+      background:#222; 
+      border-radius:10px; 
+      overflow:hidden; 
+      filter:grayscale(1); 
+      transition:filter .25s ease
     }
-    .card {
-      aspect-ratio: 1/1;
-      background: #222;
-      border-radius: 10px;
-      overflow: hidden;
-      filter: grayscale(1);
-      transition: filter .25s ease;
-    }
-    .card:hover {
-      filter: grayscale(0);
-    }
+    .card:hover{filter:grayscale(0)}
     .hint {
-      position: fixed;
-      bottom: 18px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      color: #aaa;
-      font-size: 14px;
-      letter-spacing: .3px;
-      z-index: 10;
+      position:fixed; 
+      bottom:18px; 
+      left:0; 
+      right:0; 
+      text-align:center; 
+      color:#aaa; 
+      font-size:14px; 
+      letter-spacing:.3px;
+      z-index:10;
     }
-    .cta {
-      display: inline-block;
-      padding: 12px 18px;
-      border: 1px solid var(--accent);
-      color: var(--ink);
-      border-radius: 10px;
-      text-decoration: none;
-      transition: transform .15s ease, background .15s ease;
+    .cta{
+      display:inline-block; 
+      padding:12px 18px; 
+      border:1px solid var(--accent); 
+      color:var(--ink); 
+      border-radius:10px; 
+      text-decoration:none; 
+      transition:transform .15s ease, background .15s ease
     }
-    .cta:hover {
-      transform: translateY(-1px);
-      background: rgba(211, 166, 92, .08);
-    }
-    /* Versículo y referencia en una sola línea con guion */
+    .cta:hover{transform:translateY(-1px); background:rgba(211,166,92,.08)}
     .verse-single-line {
       font-style: italic;
       color: #e9e1d2;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0 14px;
       white-space: nowrap;
       overflow-x: auto;
+      max-width: 800px;
+      margin: 18px auto 0 auto;
+      padding: 0 14px;
       font-size: clamp(16px, 2.3vw, 20px);
-    }
-
-    /* Footer fijo, más abajo en móviles y con fuente más pequeña */
-    .designer-mark {
-      position: fixed;
-      right: 18px;
-      bottom: 8px;
-      color: #fff;
-      font-size: 15px;
-      letter-spacing: .2px;
-      opacity: 0.88;
-      font-family: var(--font);
-      z-index: 50;
-      pointer-events: none;
-      background: transparent;
-      transition: bottom 0.3s ease, font-size 0.3s ease;
-    }
-    @media (max-width: 600px) {
-      .designer-mark {
-        bottom: 50px; /* más abajo para no tapar el hint */
-        font-size: 12px; /* fuente más pequeña */
-      }
-      .screen {
-        padding: 8vh 6vw;
-      }
-      p {
-        padding-left: 14px;
-        padding-right: 14px;
-      }
-      .hint {
-        bottom: 18px; /* Mantener hint visible */
-        font-size: 14px;
-      }
     }
   </style>
 </head>
@@ -182,20 +128,9 @@
     </nav>
     <div class="hint">Clic para reiniciar</div>
   </section>
-  <div class="designer-mark">⦾ Design By: JAP © 2025</div>
-  <script>
-    (function(){
-      const order=["intro","reflection","invite"];
-      let idx=0;
-      const screens=order.map(id=>document.getElementById(id));
-      const activate=i=>{screens.forEach((el,j)=>el.classList.toggle("active",j===i));};
-      const next=()=>{idx=(idx+1)%order.length; activate(idx);};
-      document.addEventListener("click", next);
-      document.querySelectorAll("a").forEach(a=>a.addEventListener("click", e=>e.stopPropagation()));
-    })();
-  </script>
 </body>
 </html>
+
 
 
 
