@@ -5,40 +5,68 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Jóvenes Valientes de Corazón</title>
   <style>
-    :root{
-      --bg:#0f0f0f; --ink:#f3f3f3; --muted:#c7c7c7; --accent:#d3a65c;
+    :root {
+      --bg: #0f0f0f;
+      --ink: #f3f3f3;
+      --muted: #c7c7c7;
+      --accent: #d3a65c;
       --font: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0; font-family:var(--font); color:var(--ink); background:var(--bg)}
-    .screen{display:none; min-height:100dvh; padding:8vh 6vw; position:relative; cursor:pointer}
-    .screen.active{display:flex; align-items:center; justify-content:center; flex-direction:column; gap:24px; text-align:center}
-    h1,h2{margin:0 0 12px 0; line-height:1.2}
-    h1{font-size:clamp(28px,4vw,48px)}
-    h2{font-size:clamp(20px,2.8vw,32px); font-weight:600; color:var(--accent)}
-    p{margin:0; font-size:clamp(16px,2.3vw,20px); color:var(--muted); max-width:800px}
-    .grid{display:grid; grid-template-columns:repeat(4, minmax(60px,1fr)); gap:10px; width:min(900px,96vw)}
-    .card{aspect-ratio:1/1; background:#222; border-radius:10px; overflow:hidden; filter:grayscale(1); transition:filter .25s ease}
-    .card:hover{filter:grayscale(0)}
-    .hint{position:fixed; bottom:18px; left:0; right:0; text-align:center; color:#aaa; font-size:14px; letter-spacing:.3px}
-    .cta{display:inline-block; padding:12px 18px; border:1px solid var(--accent); color:var(--ink); border-radius:10px; text-decoration:none; transition:transform .15s ease, background .15s ease}
-    .cta:hover{transform:translateY(-1px); background:rgba(211,166,92,.08)}
-    .verse{font-style:italic; color:#e9e1d2}
-    .soft{opacity:.85}
+    * { box-sizing: border-box }
+    html, body { height: 100% }
+    body { margin: 0; font-family: var(--font); color: var(--ink); background: var(--bg) }
+    .screen { display: none; min-height: 100dvh; padding: 8vh 6vw; position: relative; cursor: pointer }
+    .screen.active { display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 24px; text-align: center }
+    h1, h2 { margin: 0 0 12px 0; line-height: 1.2 }
+    h1 { font-size: clamp(28px, 4vw, 48px) }
+    h2 { font-size: clamp(20px, 2.8vw, 32px); font-weight: 600; color: var(--accent) }
+    p { margin: 0; font-size: clamp(16px, 2.3vw, 20px); color: var(--muted); max-width: 800px }
+    .grid { display: grid; grid-template-columns: repeat(4, minmax(60px,1fr)); gap: 10px; width: min(900px,96vw) }
+    .card { aspect-ratio: 1/1; background: #222; border-radius: 10px; overflow: hidden; filter: grayscale(1); transition: filter .25s ease }
+    .card:hover { filter: grayscale(0) }
+    .hint { position: fixed; bottom: 30px; left: 0; right: 0; text-align: center; color: #aaa; font-size: 14px; letter-spacing: .3px; z-index: 10 }
+    .cta { display: inline-block; padding: 12px 18px; border: 1px solid var(--accent); color: var(--ink); border-radius: 10px; text-decoration: none; transition: transform .15s ease, background .15s ease }
+    .cta:hover { transform: translateY(-1px); background: rgba(211,166,92,.08) }
 
-    /* Estilo para el diseño en la esquina inferior derecha */
+    .verse-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      margin-bottom: 0px;
+    }
+    .verse {
+      font-style: italic;
+      color: #e9e1d2;
+      margin-bottom: 0px;
+      margin-top: 18px;
+    }
+    .verse-ref {
+      color: #e9e1d2;
+      font-size: 15px;
+      margin-bottom: 0px;
+      margin-top: 2px;
+    }
+
+    /* Estilo para el diseño en la esquina inferior derecha, debajo de .hint */
     .designer-mark {
       position: fixed;
       right: 18px;
-      bottom: 8px;
+      bottom: 3px;
       color: #fff;
       font-size: 15px;
       letter-spacing: .2px;
       opacity: 0.88;
       font-family: var(--font);
-      z-index: 50;
+      z-index: 2;
       pointer-events: none;
+      background: transparent;
+    }
+
+    @media (max-width: 600px) {
+      .screen { padding: 6vh 2vw; }
+      .designer-mark { font-size: 13px; right:8px; bottom:2px; }
+      .hint { font-size: 13px; bottom: 25px;}
     }
   </style>
 </head>
@@ -59,8 +87,10 @@
     <h2>Un instante de reflexión</h2>
     <p>Jóvenes Valientes de Corazón, cuando la prisa agita por dentro y las dudas empujan por fuera, no se trata de correr más rápido, sino de recordar dónde nace el paso. Un corazón cuidado reconoce la Voz en medio del ruido y vuelve a orientarse hacia lo que permanece. La valentía no borra el temblor; lo atraviesa de la mano de Dios. Por eso caminamos juntos para compartir aliento, encender la esperanza de rostro en rostro y convertir la fe en gestos que alivian el peso de alguien.</p>
     <p>La vida se construye desde adentro hacia afuera. Custodiar la raíz no significa cerrarse, sino abrir espacio a la voz que da sentido. Y abrirse a los demás no diluye la identidad, la afirma en el amor. Crecer es aprender a escuchar, obedecer y servir, sin quedar atrapados en el impulso de “hacer por hacer”. El fruto llega a su tiempo, se prepara en silencio, florece en compañía y alimenta a más de uno.</p>
-    <p class="verse">“Sobre toda cosa guardada, guarda tu corazón; porque de él mana la vida.”</p>
-    <p class="verse">Proverbios 4:23</p>
+    <div class="verse-block">
+      <span class="verse">“Sobre toda cosa guardada, guarda tu corazón; porque de él mana la vida.”</span>
+      <span class="verse-ref">Proverbios 4:23</span>
+    </div>
     <div class="hint">Vuelve a hacer clic para ver la invitación</div>
   </section>
   <!-- PANTALLA 3: INVITACIÓN -->
@@ -79,14 +109,19 @@
   <div class="designer-mark">⦾ Design By: JAP © 2025</div>
 
   <script>
-    (function(){
-      const order=["intro","reflection","invite"];
-      let idx=0;
-      const screens=order.map(id=>document.getElementById(id));
-      const activate=i=>{screens.forEach((el,j)=>el.classList.toggle("active",j===i));};
-      const next=()=>{idx=(idx+1)%order.length; activate(idx);};
+    (function() {
+      const order = ["intro","reflection","invite"];
+      let idx = 0;
+      const screens = order.map(id => document.getElementById(id));
+      const activate = i => {
+        screens.forEach((el, j) => el.classList.toggle("active", j === i));
+      };
+      const next = () => {
+        idx = (idx + 1) % order.length;
+        activate(idx);
+      };
       document.addEventListener("click", next);
-      document.querySelectorAll("a").forEach(a=>a.addEventListener("click", e=>e.stopPropagation()));
+      document.querySelectorAll("a").forEach(a => a.addEventListener("click", e => e.stopPropagation()));
     })();
   </script>
 </body>
