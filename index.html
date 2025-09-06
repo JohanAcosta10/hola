@@ -56,8 +56,7 @@
       max-width: 800px;
       margin-left: auto;
       margin-right: auto;
-      padding: 0 14px;
-      box-sizing: border-box;
+      padding: 0 14px; /* padding lateral */
     }
     .soft {
       opacity: .85;
@@ -104,24 +103,20 @@
       transform: translateY(-1px);
       background: rgba(211, 166, 92, .08);
     }
-    /* Versículo sin espacio intermedio entre líneas */
-    .verse-group {
+    /* Versículo y referencia en una sola línea con guion */
+    .verse-single-line {
       font-style: italic;
       color: #e9e1d2;
-      margin: 18px 0 0 0;
-      line-height: 1.1;
       max-width: 800px;
       margin-left: auto;
       margin-right: auto;
       padding: 0 14px;
-      box-sizing: border-box;
-    }
-    .verse-group span {
-      display: block;
-      margin: 0;
+      white-space: nowrap;
+      overflow-x: auto;
+      font-size: clamp(16px, 2.3vw, 20px);
     }
 
-    /* Footer fijo, pequeño y más abajo solo para móviles */
+    /* Footer fijo, más abajo en móviles y con fuente más pequeña */
     .designer-mark {
       position: fixed;
       right: 18px;
@@ -134,15 +129,13 @@
       z-index: 50;
       pointer-events: none;
       background: transparent;
-      transition: bottom 0.3s ease;
+      transition: bottom 0.3s ease, font-size 0.3s ease;
     }
-
     @media (max-width: 600px) {
       .designer-mark {
-        font-size: 12px; /* tamaño más pequeño */
-        bottom: 50px; /* mucho más abajo para no tapar mensajes */
+        bottom: 50px; /* más abajo para no tapar el hint */
+        font-size: 12px; /* fuente más pequeña */
       }
-      /* Para mantener padding lateral en móvil */
       .screen {
         padding: 8vh 6vw;
       }
@@ -151,14 +144,8 @@
         padding-right: 14px;
       }
       .hint {
-        bottom: 18px; /* Mantener hint visible sin interferencia */
+        bottom: 18px; /* Mantener hint visible */
         font-size: 14px;
-      }
-      /* Ajuste para que verse-group mantenga su padding y ancho */
-      .verse-group {
-        padding-left: 14px;
-        padding-right: 14px;
-        max-width: 100%;
       }
     }
   </style>
@@ -180,10 +167,7 @@
     <h2>Un instante de reflexión</h2>
     <p>Jóvenes Valientes de Corazón, cuando la prisa agita por dentro y las dudas empujan por fuera, no se trata de correr más rápido, sino de recordar dónde nace el paso. Un corazón cuidado reconoce la Voz en medio del ruido y vuelve a orientarse hacia lo que permanece. La valentía no borra el temblor; lo atraviesa de la mano de Dios. Por eso caminamos juntos para compartir aliento, encender la esperanza de rostro en rostro y convertir la fe en gestos que alivian el peso de alguien.</p>
     <p>La vida se construye desde adentro hacia afuera. Custodiar la raíz no significa cerrarse, sino abrir espacio a la voz que da sentido. Y abrirse a los demás no diluye la identidad, la afirma en el amor. Crecer es aprender a escuchar, obedecer y servir, sin quedar atrapados en el impulso de “hacer por hacer”. El fruto llega a su tiempo, se prepara en silencio, florece en compañía y alimenta a más de uno.</p>
-    <div class="verse-group" aria-label="Versículo bíblico">
-      <span>“Sobre toda cosa guardada, guarda tu corazón; porque de él mana la vida.”</span>
-      <span>Proverbios 4:23</span>
-    </div>
+    <p class="verse-single-line">“Sobre toda cosa guardada, guarda tu corazón; porque de él mana la vida.” - Proverbios 4:23</p>
     <div class="hint">Vuelve a hacer clic para ver la invitación</div>
   </section>
   <!-- PANTALLA 3: INVITACIÓN -->
@@ -212,5 +196,6 @@
   </script>
 </body>
 </html>
+
 
 
