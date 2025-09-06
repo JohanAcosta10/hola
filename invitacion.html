@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Jóvenes Valientes de Corazón</title>
+  <style>
+    :root{
+      --bg:#0f0f0f; --ink:#f3f3f3; --muted:#c7c7c7; --accent:#d3a65c;
+      --font: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font-family:var(--font); color:var(--ink); background:var(--bg)}
+    .screen{display:none; min-height:100dvh; padding:8vh 6vw; position:relative; cursor:pointer}
+    .screen.active{display:flex; align-items:center; justify-content:center; flex-direction:column; gap:24px; text-align:center}
+    h1,h2{margin:0 0 12px 0; line-height:1.2}
+    h1{font-size:clamp(28px,4vw,48px)}
+    h2{font-size:clamp(20px,2.8vw,32px); font-weight:600; color:var(--accent)}
+    p{margin:0; font-size:clamp(16px,2.3vw,20px); color:var(--muted); max-width:800px}
+    .grid{display:grid; grid-template-columns:repeat(4, minmax(60px,1fr)); gap:10px; width:min(900px,96vw)}
+    .card{aspect-ratio:1/1; background:#222; border-radius:10px; overflow:hidden; filter:grayscale(1); transition:filter .25s ease}
+    .card:hover{filter:grayscale(0)}
+    .hint{position:fixed; bottom:18px; left:0; right:0; text-align:center; color:#aaa; font-size:14px; letter-spacing:.3px}
+    .cta{display:inline-block; padding:12px 18px; border:1px solid var(--accent); color:var(--ink); border-radius:10px; text-decoration:none; transition:transform .15s ease, background .15s ease}
+    .cta:hover{transform:translateY(-1px); background:rgba(211,166,92,.08)}
+    .verse{font-style:italic; color:#e9e1d2}
+    .soft{opacity:.85}
+
+    /* Estilo para el diseño en la esquina inferior derecha */
+    .designer-mark {
+      position: fixed;
+      right: 18px;
+      bottom: 8px;
+      color: #fff;
+      font-size: 15px;
+      letter-spacing: .2px;
+      opacity: 0.88;
+      font-family: var(--font);
+      z-index: 50;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- PANTALLA 1: PORTADA -->
+  <section id="intro" class="screen active" aria-label="Portada">
+    <h1>Jóvenes Valientes de Corazón</h1>
+    <p class="soft">Corazones valientes que guardan la vida interior para andar con sabiduría cada día.</p>
+    <div class="grid" aria-hidden="true">
+      <div class="card"></div><div class="card"></div><div class="card"></div><div class="card"></div>
+      <div class="card"></div><div class="card"></div><div class="card"></div><div class="card"></div>
+      <div class="card"></div><div class="card"></div><div class="card"></div><div class="card"></div>
+    </div>
+    <div class="hint">Haz clic en cualquier parte para continuar</div>
+  </section>
+  <!-- PANTALLA 2: REFLEXIÓN (Contenido modificado) -->
+  <section id="reflection" class="screen" aria-label="Reflexión">
+    <h2>Un instante de reflexión</h2>
+    <p>Jóvenes Valientes de Corazón, cuando la prisa agita por dentro y las dudas empujan por fuera, no se trata de correr más rápido, sino de recordar dónde nace el paso. Un corazón cuidado reconoce la Voz en medio del ruido y vuelve a orientarse hacia lo que permanece. La valentía no borra el temblor; lo atraviesa de la mano de Dios. Por eso caminamos juntos para compartir aliento, encender la esperanza de rostro en rostro y convertir la fe en gestos que alivian el peso de alguien.</p>
+    <p>La vida se construye desde adentro hacia afuera. Custodiar la raíz no significa cerrarse, sino abrir espacio a la voz que da sentido. Y abrirse a los demás no diluye la identidad, la afirma en el amor. Crecer es aprender a escuchar, obedecer y servir, sin quedar atrapados en el impulso de “hacer por hacer”. El fruto llega a su tiempo, se prepara en silencio, florece en compañía y alimenta a más de uno.</p>
+    <p class="verse">“Sobre toda cosa guardada, guarda tu corazón; porque de él mana la vida.”</p>
+    <p class="verse">Proverbios 4:23</p>
+    <div class="hint">Vuelve a hacer clic para ver la invitación</div>
+  </section>
+  <!-- PANTALLA 3: INVITACIÓN -->
+  <section id="invite" class="screen" aria-label="Invitación">
+    <h2>Nos reunimos</h2>
+    <p>“Considerémonos… para estimularnos al amor y a las buenas obras; no dejando de congregarnos.” — Hebreos 10:24-25</p>
+    <p class="soft"><strong>Te esperamos</strong> en [Lugar], el [Fecha] a las [Hora], con el corazón abierto y una silla para tu historia.</p>
+    <nav style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:10px">
+      <a class="cta" href="#" aria-label="Confirmar asistencia">Confirmar asistencia</a>
+      <a class="cta" href="#" aria-label="Cómo llegar">Cómo llegar</a>
+      <a class="cta" href="#" aria-label="Recordatorio">Agregar recordatorio</a>
+    </nav>
+    <div class="hint">Clic para reiniciar</div>
+  </section>
+
+  <div class="designer-mark">⦾ Design By: JAP © 2025</div>
+
+  <script>
+    (function(){
+      const order=["intro","reflection","invite"];
+      let idx=0;
+      const screens=order.map(id=>document.getElementById(id));
+      const activate=i=>{screens.forEach((el,j)=>el.classList.toggle("active",j===i));};
+      const next=()=>{idx=(idx+1)%order.length; activate(idx);};
+      document.addEventListener("click", next);
+      document.querySelectorAll("a").forEach(a=>a.addEventListener("click", e=>e.stopPropagation()));
+    })();
+  </script>
+</body>
+</html>
