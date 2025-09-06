@@ -15,36 +15,77 @@
     * { box-sizing: border-box }
     html, body { height: 100% }
     body { margin: 0; font-family: var(--font); color: var(--ink); background: var(--bg) }
+
     .screen {
-      display: none; min-height: 100dvh;
-      padding: 8vh 0; /* Solo top/bottom */
-      position: relative; cursor: pointer
+      display: none;
+      min-height: 100dvh;
+      position: relative;
+      cursor: pointer;
+      padding: 8vh 28px;  /* Amplio margen lateral en todas las pantallas */
     }
     .screen.active {
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 24px; text-align: center
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 24px;
+      text-align: center;
     }
-    h1, h2 { margin: 0 0 12px 0; line-height: 1.2 }
-    h1 { font-size: clamp(28px, 4vw, 48px) }
-    h2 { font-size: clamp(20px, 2.8vw, 32px); font-weight: 600; color: var(--accent) }
-    p { margin: 0; font-size: clamp(16px,2.3vw,20px); color: var(--muted); max-width:800px; margin-left:auto; margin-right:auto; padding: 0 14px; }
+    h1, h2 {
+      margin: 0 0 12px 0;
+      line-height: 1.2;
+    }
+    h1 {
+      font-size: clamp(28px, 4vw, 48px)
+    }
+    h2 {
+      font-size: clamp(20px, 2.8vw, 32px);
+      font-weight: 600;
+      color: var(--accent)
+    }
+    p {
+      margin: 0;
+      font-size: clamp(16px,2.3vw,20px);
+      color: var(--muted);
+      max-width: 800px;
+      margin-left:auto; margin-right:auto;
+      padding: 0 18px; /* Margen interno extra en todos los párrafos */
+      box-sizing: border-box;
+    }
     .soft{opacity:.85;}
     .grid {
-      display: grid; grid-template-columns: repeat(4, minmax(60px,1fr)); gap: 10px;
-      width: min(900px, 96vw); margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(60px,1fr));
+      gap: 10px;
+      width: min(900px,96vw);
+      margin: 0 auto;
     }
     .card { aspect-ratio: 1/1; background: #222; border-radius: 10px; overflow: hidden; filter: grayscale(1); transition: filter .25s ease }
     .card:hover { filter: grayscale(0) }
-    .hint { position: fixed; bottom: 30px; left: 0; right: 0; text-align: center; color: #aaa; font-size: 14px; letter-spacing: .3px; z-index: 10 }
-    .cta { display: inline-block; padding: 12px 18px; border: 1px solid var(--accent); color: var(--ink); border-radius: 10px; text-decoration: none; transition: transform .15s ease, background .15s ease }
-    .cta:hover { transform: translateY(-1px); background: rgba(211,166,92,.08) }
+    .hint {
+      position: fixed;
+      bottom: 30px; left: 0; right: 0;
+      text-align: center; color: #aaa;
+      font-size: 14px; letter-spacing: .3px; z-index: 10
+    }
+    .cta {
+      display: inline-block;
+      padding: 12px 18px;
+      border: 1px solid var(--accent);
+      color: var(--ink);
+      border-radius: 10px;
+      text-decoration: none;
+      transition: transform .15s ease, background .15s ease
+    }
+    .cta:hover {
+      transform: translateY(-1px);
+      background: rgba(211,166,92,.08)
+    }
 
-    /* Versículo junto */
     .verse-block { display: flex; flex-direction: column; align-items: center; gap: 2px; margin-bottom: 0px; margin-top: 18px;}
     .verse { font-style: italic; color: #e9e1d2; margin-bottom: 0px; margin-top: 0; }
     .verse-ref { color: #e9e1d2; font-size: 15px; margin-bottom: 0px; margin-top: 2px; }
 
-    /* Footer: margen seguro móvil */
     .designer-mark {
       position: fixed;
       right: 18px;
@@ -58,12 +99,60 @@
       pointer-events: none;
       background: transparent;
     }
+    /* Tarjetas coloridas para última pantalla tipo imagen ejemplo */
+    .card-block {
+      background: linear-gradient(135deg, #eeb6eb 0%, #d4a3fa 100%);
+      border-radius: 20px;
+      box-shadow: 0 4px 24px 0 rgba(80,0,80,0.07);
+      margin-bottom: 20px;
+      padding: 18px;
+      max-width: 540px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      color: #703383;
+      font-size: 23px;
+      font-weight: 700;
+      letter-spacing: .6px;
+    }
+    .info-block {
+      background: #e7f4ff;
+      border-radius: 18px;
+      box-shadow: 0 4px 18px 0 rgba(80,80,230,0.09);
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      max-width: 450px;
+      margin: 0 auto;
+    }
+    .info-block2 {
+      background: #e5ffef;
+      border-radius: 18px;
+      box-shadow: 0 4px 18px 0 rgba(80,220,140,0.09);
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      max-width: 450px;
+      margin: 0 auto;
+    }
+    .info-block3 {
+      background: #fff6d3;
+      border-radius: 18px;
+      box-shadow: 0 4px 18px 0 rgba(250,210,80,0.09);
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      max-width: 470px;
+      margin: 0 auto;
+    }
+    .block-title { margin-top:6px;margin-bottom:2px;font-size:22px;font-weight:700;color:#803c8c;}
+    .block-title2 { margin-top:6px;margin-bottom:2px; font-size:22px; font-weight:700; color: #1f6c52;}
+    .block-title3 { margin-top:6px; margin-bottom:2px; font-size:22px; font-weight:700; color: #a86a11;}
+    .block-hour  { font-size:25px;font-weight:700;color:#803c8c; }
 
     @media (max-width: 600px) {
-      .screen { padding: 6vh 0; }
-      p     { padding-left: 8px; padding-right: 8px;}
-      .designer-mark { font-size: 13px; right:8px;}
+      .screen { padding: 5vh 10px; }
+      p     { padding-left: 7px; padding-right: 7px; }
+      .designer-mark { font-size: 13px; right:8px; }
       .hint { font-size: 13px; bottom: 25px;}
+      .card-block, .info-block, .info-block2, .info-block3 { padding-left: 4vw; padding-right: 4vw; }
     }
   </style>
 </head>
@@ -90,16 +179,29 @@
     </div>
     <div class="hint">Vuelve a hacer clic para ver la invitación</div>
   </section>
-  <!-- PANTALLA 3: INVITACIÓN -->
+  <!-- PANTALLA 3: INVITACIÓN COLORIDA -->
   <section id="invite" class="screen" aria-label="Invitación">
-    <h2>Nos reunimos</h2>
-    <p>“Considerémonos… para estimularnos al amor y a las buenas obras; no dejando de congregarnos.” — Hebreos 10:24-25</p>
-    <p class="soft"><strong>Te esperamos</strong> en [Lugar], el [Fecha] a las [Hora], con el corazón abierto y una silla para tu historia.</p>
-    <nav style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:10px">
-      <a class="cta" href="#" aria-label="Confirmar asistencia">Confirmar asistencia</a>
-      <a class="cta" href="#" aria-label="Cómo llegar">Cómo llegar</a>
-      <a class="cta" href="#" aria-label="Recordatorio">Agregar recordatorio</a>
-    </nav>
+    <div class="card-block">
+      "Eres un valiente de corazón<br>
+      no faltes al encuentro de<br>
+      <span style="color:#e459a9">LA GRAN FAMILIA</span>"
+    </div>
+    <div class="info-block">
+      <span style="font-size:24px; font-weight:700;">📅 Cuándo</span><br>
+      El próximo viernes<br>
+      <span class="block-hour">🕰️ 7:30 PM</span>
+    </div>
+    <div class="info-block2">
+      <span class="block-title2">📍 Dónde</span><br>
+      Casa 135<br>
+      Barrio El Plumón
+    </div>
+    <div class="info-block3">
+      <span class="block-title3">🔥 Grupo de Jóvenes de Oración</span><br>
+      Ven y sé parte de esta experiencia<br>
+      única de fe y comunidad<br>
+      <div style="margin-top:6px; color:#e4590c;">¡Has demostrado ser un valiente conductor hacia la salvación!</div>
+    </div>
     <div class="hint">Clic para reiniciar</div>
   </section>
 
@@ -123,4 +225,3 @@
   </script>
 </body>
 </html>
-
