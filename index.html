@@ -92,11 +92,28 @@
       align-items: center;
       justify-content: center;
       z-index: 1000;
+      flex-direction: column;
     }
     #modal img {
       max-width: 90vw;
       max-height: 90vh;
       border-radius: 12px;
+    }
+    /* Botón cerrar modal (X) */
+    #modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      color: var(--accent);
+      font-size: 32px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1010;
+    }
+    #modal-close:hover {
+      color: #fff;
     }
   </style>
 </head>
@@ -138,7 +155,7 @@
       <!-- Agregar recordatorio -->
       <a class="cta" href="https://calendar.app.google/e1FbVd6zkUsxAyft9" target="_blank" aria-label="Recordatorio">Agregar recordatorio</a>
     </nav>
-    <div class="hint">Vuelve a hacer clic </div>
+    <div class="hint">Clic para reiniciar</div>
   </section>
 
   <section id="reflection" class="screen" aria-label="Reflexión">
@@ -146,11 +163,12 @@
     <p>Jóvenes Valientes de Corazón, cuando la prisa agita por dentro y las dudas empujan por fuera, no se trata de correr más rápido, sino de recordar dónde nace el paso. Un corazón cuidado reconoce la Voz en medio del ruido y vuelve a orientarse hacia lo que permanece. La valentía no borra el temblor; lo atraviesa de la mano de Dios. Por eso caminamos juntos para compartir aliento, encender la esperanza de rostro en rostro y convertir la fe en gestos que alivian el peso de alguien.</p>
     <p>La vida se construye desde adentro hacia afuera. Custodiar la raíz no significa cerrarse, sino abrir espacio a la voz que da sentido. Y abrirse a los demás no diluye la identidad, la afirma en el amor. Crecer es aprender a escuchar, obedecer y servir, sin quedar atrapados en el impulso de “hacer por hacer”. El fruto llega a su tiempo, se prepara en silencio, florece en compañía y alimenta a más de uno.</p>
     <p class="verse">“Sobre toda cosa guardada, guarda tu corazón; porque de él mana la vida." - Proverbios 4:23</p>
-    <div class="hint">Clic para reiniciar</div>
+    <div class="hint">Vuelve a hacer clic para ver la invitación</div>
   </section>
 
   <!-- Modal para imagen grande -->
   <div id="modal" aria-hidden="true" role="dialog" aria-label="Imagen ampliada" tabindex="-1">
+    <button id="modal-close" aria-label="Cerrar imagen">&times;</button>
     <img src="" alt="Imagen ampliada">
   </div>
 
@@ -206,6 +224,7 @@
     // Mostrar imagen en grande al hacer clic
     const modal = document.getElementById('modal');
     const modalImg = modal.querySelector('img');
+    const modalCloseBtn = document.getElementById('modal-close');
     document.querySelectorAll('#intro .card').forEach(card => {
       card.addEventListener('click', e => {
         const src = card.querySelector('img').src;
@@ -215,6 +234,13 @@
         // Para evitar que se active el cambio de pantalla al dar clic en la imagen
         e.stopPropagation();
       });
+    });
+    // Cerrar modal con botón X
+    modalCloseBtn.addEventListener('click', e => {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+      modalImg.src = '';
+      e.stopPropagation();
     });
     // Cerrar modal al dar clic fuera de la imagen
     modal.addEventListener('click', e => {
