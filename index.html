@@ -26,9 +26,10 @@
       background:#222;
       border-radius:10px;
       overflow:hidden;
-      filter: grayscale(1);
-      transition: filter 0.5s ease, transform 0.5s ease;
-      cursor: default;
+      /* Se elimina filtro grayscale para que siempre estén a color */
+      filter: none;
+      transition: transform 0.5s ease;
+      cursor: pointer;
     }
     /* Estilo para la imagen dentro de cada card */
     .card img {
@@ -38,21 +39,19 @@
       user-select:none;
       pointer-events:none;
     }
-    /* Tarjeta activa: sin filtro y escalada */
+    /* Tarjeta activa: solo escala */
     .card.active {
-      filter: grayscale(0);
       transform: scale(1.2);
       z-index: 10;
-      transition: filter 3s ease, transform 3s ease;
+      transition: transform 2s ease;
     }
-
+    
     .card:hover {
-      filter: grayscale(0);
       transform: scale(1.05);
-      transition: filter 0.25s ease, transform 0.25s ease;
+      transition: transform 0.25s ease;
       z-index: 5;
     }
-
+    
     .hint{position:fixed; bottom:18px; left:0; right:0; text-align:center; color:#aaa; font-size:14px; letter-spacing:.3px}
     .cta{display:inline-block; padding:12px 18px; border:1px solid var(--accent); color:var(--ink); border-radius:10px; text-decoration:none; transition:transform .15s ease, background .15s ease}
     .cta:hover{transform:translateY(-1px); background:rgba(211,166,92,.08)}
@@ -83,10 +82,26 @@
     #heart {
       vertical-align:middle;
     }
+    
+    /* Modal imagen grande */
+    #modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.8);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    #modal img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 12px;
+    }
   </style>
 </head>
 <body>
-  <!-- PANTALLA 1: PORTADA -->
+  <!-- PANTALLAS -->
   <section id="intro" class="screen active" aria-label="Portada">
     <h1>Jóvenes Valientes de Corazón</h1>
     <p class="soft">Corazones valientes que guardan la vida interior para andar con sabiduría cada día.</p>
@@ -107,16 +122,6 @@
     <div class="hint">Haz clic en cualquier parte para continuar</div>
   </section>
 
-  <!-- PANTALLA 2: REFLEXIÓN -->
-  <section id="reflection" class="screen" aria-label="Reflexión">
-    <h2>Un instante de reflexión</h2>
-    <p>Jóvenes Valientes de Corazón, cuando la prisa agita por dentro y las dudas empujan por fuera, no se trata de correr más rápido, sino de recordar dónde nace el paso. Un corazón cuidado reconoce la Voz en medio del ruido y vuelve a orientarse hacia lo que permanece. La valentía no borra el temblor; lo atraviesa de la mano de Dios. Por eso caminamos juntos para compartir aliento, encender la esperanza de rostro en rostro y convertir la fe en gestos que alivian el peso de alguien.</p>
-    <p>La vida se construye desde adentro hacia afuera. Custodiar la raíz no significa cerrarse, sino abrir espacio a la voz que da sentido. Y abrirse a los demás no diluye la identidad, la afirma en el amor. Crecer es aprender a escuchar, obedecer y servir, sin quedar atrapados en el impulso de “hacer por hacer”. El fruto llega a su tiempo, se prepara en silencio, florece en compañía y alimenta a más de uno.</p>
-    <p class="verse">“Sobre toda cosa guardada, guarda tu corazón; porque de él mana la vida." - Proverbios 4:23</p>
-    <div class="hint">Vuelve a hacer clic para ver la invitación</div>
-  </section>
-
-  <!-- PANTALLA 3: INVITACIÓN -->
   <section id="invite" class="screen" aria-label="Invitación">
     <h2>Nos reunimos</h2>
     <p class="soft"><strong>Te esperamos</strong> en la Casa 135, Barrio El Plumón, el viernes 12 de septiembre a las 7:30 PM, con el corazón abierto y una silla para tu historia.</p>
@@ -133,17 +138,35 @@
       <!-- Agregar recordatorio -->
       <a class="cta" href="https://calendar.app.google/e1FbVd6zkUsxAyft9" target="_blank" aria-label="Recordatorio">Agregar recordatorio</a>
     </nav>
+    <div class="hint">Vuelve a hacer clic </div>
+  </section>
+
+  <section id="reflection" class="screen" aria-label="Reflexión">
+    <h2>Un instante de reflexión</h2>
+    <p>Jóvenes Valientes de Corazón, cuando la prisa agita por dentro y las dudas empujan por fuera, no se trata de correr más rápido, sino de recordar dónde nace el paso. Un corazón cuidado reconoce la Voz en medio del ruido y vuelve a orientarse hacia lo que permanece. La valentía no borra el temblor; lo atraviesa de la mano de Dios. Por eso caminamos juntos para compartir aliento, encender la esperanza de rostro en rostro y convertir la fe en gestos que alivian el peso de alguien.</p>
+    <p>La vida se construye desde adentro hacia afuera. Custodiar la raíz no significa cerrarse, sino abrir espacio a la voz que da sentido. Y abrirse a los demás no diluye la identidad, la afirma en el amor. Crecer es aprender a escuchar, obedecer y servir, sin quedar atrapados en el impulso de “hacer por hacer”. El fruto llega a su tiempo, se prepara en silencio, florece en compañía y alimenta a más de uno.</p>
+    <p class="verse">“Sobre toda cosa guardada, guarda tu corazón; porque de él mana la vida." - Proverbios 4:23</p>
     <div class="hint">Clic para reiniciar</div>
   </section>
 
+  <!-- Modal para imagen grande -->
+  <div id="modal" aria-hidden="true" role="dialog" aria-label="Imagen ampliada" tabindex="-1">
+    <img src="" alt="Imagen ampliada">
+  </div>
+
   <script>
-    // Navegación entre pantallas
+    // Nuevo orden de pantallas: intro(0), invite(1), reflection(2)
     (function(){
-      const order=["intro","reflection","invite"];
+      const order=["intro","invite","reflection"];
       let idx=0;
       const screens=order.map(id=>document.getElementById(id));
-      const activate=i=>{screens.forEach((el,j)=>el.classList.toggle("active",j===i));};
-      const next=()=>{idx=(idx+1)%order.length; activate(idx);};
+      const activate=i=>{
+        screens.forEach((el,j)=>el.classList.toggle("active",j===i));
+      };
+      const next=()=>{
+        idx=(idx+1)%order.length;
+        activate(idx);
+      };
       document.addEventListener("click", next);
       document.querySelectorAll("a, button").forEach(el=>el.addEventListener("click", e=>e.stopPropagation()));
     })();
@@ -163,31 +186,47 @@
       });
     }
 
-    // Animación de tarjetas en secuencia: cada 3s se activa una expandiéndose y coloreándose
+    // Animación de tarjetas en secuencia: se mantiene pero sin filtro, solo escala
     (function animateCardsInSequence() {
       const cards = document.querySelectorAll('#intro .card');
       let current = 0;
       const duration = 3000;
-
       function activateCard(index) {
         cards.forEach((card, i) => {
           card.classList.toggle('active', i === index);
         });
       }
-
       activateCard(current);
-
       setInterval(() => {
         current = (current + 1) % cards.length;
         activateCard(current);
       }, duration);
     })();
+
+    // Mostrar imagen en grande al hacer clic
+    const modal = document.getElementById('modal');
+    const modalImg = modal.querySelector('img');
+    document.querySelectorAll('#intro .card').forEach(card => {
+      card.addEventListener('click', e => {
+        const src = card.querySelector('img').src;
+        modalImg.src = src;
+        modal.style.display = 'flex';
+        modal.setAttribute('aria-hidden', 'false');
+        // Para evitar que se active el cambio de pantalla al dar clic en la imagen
+        e.stopPropagation();
+      });
+    });
+    // Cerrar modal al dar clic fuera de la imagen
+    modal.addEventListener('click', e => {
+      if(e.target === modal) {
+        modal.style.display = 'none';
+        modal.setAttribute('aria-hidden', 'true');
+        modalImg.src = '';
+      }
+    });
   </script>
 </body>
 </html>
-
-
-
 
 
 
