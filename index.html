@@ -9,7 +9,7 @@
       --bg:#0f0f0f; --ink:#f3f3f3; --muted:#c7c7c7; --accent:#d3a65c;
       --font: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
     }
-    *{box-sizing:border-box}
+    *{box-sizing:border-box}   
     html,body{height:100%}
     body{margin:0; font-family:var(--font); color:var(--ink); background:var(--bg)}
     .screen{display:none; min-height:100dvh; padding:8vh 6vw; position:relative; cursor:pointer}
@@ -39,6 +39,17 @@
       z-index: 50;
       pointer-events: none;
     }
+    /* Corazón interactivo */
+    #heart-btn {
+      background:none; border:none;
+      padding:0;
+      cursor:pointer;
+      display:inline-block;
+      vertical-align:middle;
+    }
+    #heart {
+      vertical-align:middle;
+    }
   </style>
 </head>
 <body>
@@ -53,7 +64,8 @@
     </div>
     <div class="hint">Haz clic en cualquier parte para continuar</div>
   </section>
-  <!-- PANTALLA 2: REFLEXIÓN (Contenido modificado) -->
+
+  <!-- PANTALLA 2: REFLEXIÓN -->
   <section id="reflection" class="screen" aria-label="Reflexión">
     <h2>Un instante de reflexión</h2>
     <p>Jóvenes Valientes de Corazón, cuando la prisa agita por dentro y las dudas empujan por fuera, no se trata de correr más rápido, sino de recordar dónde nace el paso. Un corazón cuidado reconoce la Voz en medio del ruido y vuelve a orientarse hacia lo que permanece. La valentía no borra el temblor; lo atraviesa de la mano de Dios. Por eso caminamos juntos para compartir aliento, encender la esperanza de rostro en rostro y convertir la fe en gestos que alivian el peso de alguien.</p>
@@ -61,19 +73,29 @@
     <p class="verse">“Sobre toda cosa guardada, guarda tu corazón; porque de él mana la vida." - Proverbios 4:23</p>
     <div class="hint">Vuelve a hacer clic para ver la invitación</div>
   </section>
+
   <!-- PANTALLA 3: INVITACIÓN -->
   <section id="invite" class="screen" aria-label="Invitación">
     <h2>Nos reunimos</h2>
     <p>“Considerémonos… para estimularnos al amor y a las buenas obras; no dejando de congregarnos.” — Hebreos 10:24-25</p>
     <p class="soft"><strong>Te esperamos</strong> en la Casa 135, Barrio El Plumón, el viernes 12 de septiembre a las 7:30 PM, con el corazón abierto y una silla para tu historia.</p>
     <nav style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:10px">
-      <a class="cta" href="#" aria-label="Confirmar asistencia">Confirmar asistencia</a>
-      <a class="cta" href="#" aria-label="Cómo llegar">Cómo llegar</a>
-      <a class="cta" href="#" aria-label="Recordatorio">Agregar recordatorio</a>
+      <!-- Corazón interactivo -->
+      <button id="heart-btn" class="cta" aria-label="Confirmar asistencia">
+        <svg id="heart" xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#d3a65c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path id="heart-path" d="M12 21C12 21 4.5 13.5 4.5 8.75C4.5 6.1 6.6 4 9.25 4C10.91 4 12 5.36 12 5.36C12 5.36 13.09 4 14.75 4C17.4 4 19.5 6.1 19.5 8.75C19.5 13.5 12 21 12 21Z"/>
+        </svg>
+      </button>
+      <!-- Cómo llegar -->
+      <a class="cta" href="https://www.google.com/maps/dir/?api=1&destination=4.8143017,-75.7285915" target="_blank" aria-label="Cómo llegar">Cómo llegar</a>
+      <!-- Agregar recordatorio -->
+      <a class="cta" href="https://calendar.app.google/VYv82TnkX94RMqzt7" target="_blank" aria-label="Recordatorio">Agregar recordatorio</a>
     </nav>
     <div class="hint">Clic para reiniciar</div>
   </section>
+
   <script>
+    // Navegación entre pantallas
     (function(){
       const order=["intro","reflection","invite"];
       let idx=0;
@@ -81,8 +103,23 @@
       const activate=i=>{screens.forEach((el,j)=>el.classList.toggle("active",j===i));};
       const next=()=>{idx=(idx+1)%order.length; activate(idx);};
       document.addEventListener("click", next);
-      document.querySelectorAll("a").forEach(a=>a.addEventListener("click", e=>e.stopPropagation()));
+      document.querySelectorAll("a, button").forEach(el=>el.addEventListener("click", e=>e.stopPropagation()));
     })();
+
+    // Corazón interactivo
+    const heartBtn = document.getElementById('heart-btn');
+    const heartPath = document.getElementById('heart-path');
+    if (heartBtn && heartPath) {
+      heartBtn.addEventListener('click', function() {
+        if (heartPath.getAttribute('fill') === 'red') {
+          heartPath.setAttribute('fill', 'none');
+          heartPath.setAttribute('stroke', '#d3a65c');
+        } else {
+          heartPath.setAttribute('fill', 'red');
+          heartPath.setAttribute('stroke', 'red');
+        }
+      });
+    }
   </script>
 </body>
 </html>
